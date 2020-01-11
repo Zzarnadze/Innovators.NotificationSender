@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Innovators.NotificationSender.API</name>
+    </assembly>
+    <members>
+        <member name="M:Innovators.NotificationSender.API.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:Innovators.NotificationSender.Api.ConventionsAndFilters.RemoveApiVersionFromParamsOperationFilter.Apply(Microsoft.OpenApi.Models.OpenApiOperation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
+            <summary>
+            Removes api version from params
+            </summary>
+            <param name="operation">Operation</param>
+            <param name="context">Operation filter context</param>
+        </member>
+        <member name="T:Innovators.FileService.API.ConventionsAndFilters.ApiExplorerGroupPerVersionConvention">
+            <summary>
+            Version convention
+            </summary>
+        </member>
+        <member name="M:Innovators.FileService.API.ConventionsAndFilters.ApiExplorerGroupPerVersionConvention.Apply(Microsoft.AspNetCore.Mvc.ApplicationModels.ControllerModel)">
+            <summary>
+            Convention application
+            </summary>
+            <param name="controller">Controller</param>
+        </member>
+        <member name="T:Innovators.FileService.API.ConventionsAndFilters.ModelStateFilter">
+            <summary>
+            Model state filter
+            </summary>
+        </member>
+        <member name="M:Innovators.FileService.API.ConventionsAndFilters.ModelStateFilter.OnActionExecuted(Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext)">
+            <summary>
+            Triggers on action execution
+            </summary>
+            <param name="context">Action execution context</param>
+        </member>
+        <member name="M:Innovators.FileService.API.ConventionsAndFilters.ModelStateFilter.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <summary>
+            Triggers on action executing context
+            </summary>
+            <param name="context">Action execution context</param>
+        </member>
+    </members>
+</doc>
