@@ -25,6 +25,7 @@ using Innovators.NotificationSender.Domain.Validations;
 using Innovators.NotificationSender.Persistence;
 using Serilog;
 using Innovators.FileService.API.ConventionsAndFilters;
+using Innovators.NotificationSender.Service.Services;
 
 namespace Innovators.NotificationSender.API
 {
@@ -56,7 +57,7 @@ namespace Innovators.NotificationSender.API
 
            services.AddPersistence(Configuration);
 
-            //   services.AddScoped<IFileService, Service.Services.File.FileService>();
+             services.AddScoped<INotificationService, NotificationService>();
 
             #region Options
             services.AddOptions();
@@ -182,7 +183,7 @@ namespace Innovators.NotificationSender.API
             app.UseSwaggerUI(
                 c =>
                 {
-                    c.SwaggerEndpoint("/docs/v1.0/swagger.json", "Schoolbook File API");
+                    c.SwaggerEndpoint("/docs/v1.0/swagger.json", "Innovators File API");
                 }
             );
         }

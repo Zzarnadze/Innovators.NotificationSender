@@ -12,5 +12,7 @@ namespace Innovators.NotificationSender.Domain.Entities
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
+
+        public virtual ICollection<Notification> Notifications { get; set; }
     }
 }

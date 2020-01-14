@@ -12,6 +12,11 @@ namespace Innovators.NotificationSender.API.Controllers
 {
     public class BaseController : ControllerBase
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="resultCode"></param>
+        /// <returns></returns>
         protected IActionResult Error (ResultCodeEnum resultCode)
         {
             try

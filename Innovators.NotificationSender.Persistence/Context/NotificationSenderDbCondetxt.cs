@@ -21,6 +21,7 @@ namespace Innovators.NotificationSender.Persistence.Context
        public  DbSet<Notification> Notifications { get; set; }
         public DbSet<NotificationType> NotificationTypes { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<MailConfiguration> MailConfigurations { get; set; }
         public DbSet<MailTemplate> MailTemplates { get; set; }
 
         public override int SaveChanges()

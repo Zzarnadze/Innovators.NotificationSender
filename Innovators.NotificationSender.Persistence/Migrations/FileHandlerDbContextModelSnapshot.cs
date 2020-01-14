@@ -19,6 +19,72 @@ namespace Innovators.NotificationSender.Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Innovators.NotificationSender.Domain.Entities.MailConfiguration", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CreatedByCustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(254)")
+                        .HasMaxLength(254);
+
+                    b.Property<string>("Host")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(300)")
+                        .HasMaxLength(300);
+
+                    b.Property<bool?>("IsActive")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
+                    b.Property<bool?>("IsDeleted")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<DateTime?>("LastModificationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("LastModifiedByCustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("NotificationTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(300)")
+                        .HasMaxLength(300);
+
+                    b.Property<int>("Port")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(300)")
+                        .HasMaxLength(300);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id");
+
+                    b.HasIndex("NotificationTypeId");
+
+                    b.ToTable("MailConfigurations");
+                });
+
             modelBuilder.Entity("Innovators.NotificationSender.Domain.Entities.MailTemplate", b =>
                 {
                     b.Property<int>("Id")
@@ -49,11 +115,19 @@ namespace Innovators.NotificationSender.Persistence.Migrations
                         .HasColumnType("nvarchar(300)")
                         .HasMaxLength(300);
 
+                    b.Property<int?>("NotificationTypeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Template")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("zzz")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("NotificationTypeId");
 
                     b.ToTable("MailTemplates");
                 });
@@ -66,6 +140,7 @@ namespace Innovators.NotificationSender.Persistence.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Body")
+                        .IsRequired()
                         .HasColumnType("nvarchar(1000)")
                         .HasMaxLength(1000);
 
@@ -76,13 +151,19 @@ namespace Innovators.NotificationSender.Persistence.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<bool?>("IsActive")
-                        .HasColumnType("bit");
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
 
                     b.Property<bool>("IsBodyHtml")
                         .HasColumnType("bit");
 
                     b.Property<bool?>("IsDeleted")
-                        .HasColumnType("bit");
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<DateTime?>("LastModificationDate")
                         .HasColumnType("datetime2");
@@ -128,6 +209,7 @@ namespace Innovators.NotificationSender.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Subject")
+                        .IsRequired()
                         .HasColumnType("nvarchar(300)")
                         .HasMaxLength(300);
 
@@ -141,6 +223,10 @@ namespace Innovators.NotificationSender.Persistence.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Id");
+
+                    b.HasIndex("NotificationTypeId");
 
                     b.HasIndex("UserId");
 
@@ -177,7 +263,14 @@ namespace Innovators.NotificationSender.Persistence.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
+                    b.Property<int?>("NotificationTypeId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("Id");
+
+                    b.HasIndex("NotificationTypeId");
 
                     b.ToTable("NotificationTypes");
                 });
@@ -211,6 +304,9 @@ namespace Innovators.NotificationSender.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("NotificationTypeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -221,14 +317,51 @@ namespace Innovators.NotificationSender.Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("NotificationTypeId");
+
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Innovators.NotificationSender.Domain.Entities.MailConfiguration", b =>
+                {
+                    b.HasOne("Innovators.NotificationSender.Domain.Entities.NotificationType", "NotificationType")
+                        .WithMany()
+                        .HasForeignKey("NotificationTypeId");
+                });
+
+            modelBuilder.Entity("Innovators.NotificationSender.Domain.Entities.MailTemplate", b =>
+                {
+                    b.HasOne("Innovators.NotificationSender.Domain.Entities.NotificationType", "NotificationType")
+                        .WithMany()
+                        .HasForeignKey("NotificationTypeId");
                 });
 
             modelBuilder.Entity("Innovators.NotificationSender.Domain.Entities.Notification", b =>
                 {
+                    b.HasOne("Innovators.NotificationSender.Domain.Entities.NotificationType", "NotificationType")
+                        .WithMany("Notifications")
+                        .HasForeignKey("NotificationTypeId")
+                        .HasConstraintName("FK_Files_NotificationType_NotificationTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Innovators.NotificationSender.Domain.Entities.User", "User")
                         .WithMany("Notification")
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("Innovators.NotificationSender.Domain.Entities.NotificationType", b =>
+                {
+                    b.HasOne("Innovators.NotificationSender.Domain.Entities.NotificationType", "NotificationType")
+                        .WithMany()
+                        .HasForeignKey("NotificationTypeId");
+                });
+
+            modelBuilder.Entity("Innovators.NotificationSender.Domain.Entities.User", b =>
+                {
+                    b.HasOne("Innovators.NotificationSender.Domain.Entities.NotificationType", "NotificationType")
+                        .WithMany()
+                        .HasForeignKey("NotificationTypeId");
                 });
 #pragma warning restore 612, 618
         }

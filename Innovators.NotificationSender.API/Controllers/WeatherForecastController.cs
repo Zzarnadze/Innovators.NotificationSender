@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Innovators.NotificationSender.Common.Helpers.Enums;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -12,11 +13,11 @@ namespace Innovators.NotificationSender.API.Controllers
 
 
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/files")]
+    [Route("api/v{version:apiVersion}/Notification")]
     [ApiController]
     [EnableCors("NotificationOrigins")]
 
-    public class WeatherForecastController : ControllerBase
+    public class WeatherForecastController : BaseController
     {
         private static readonly string[] Summaries = new[]
         {
@@ -29,7 +30,12 @@ namespace Innovators.NotificationSender.API.Controllers
         {
             _logger = logger;
         }
-
+        [HttpGet("GetMailNotificationtemplate")]
+        public IActionResult zzz()
+        {
+            var responze = ResultCodeEnum.Code200Success;
+            return Error(responze);
+        }
         [HttpGet]
         [Description("asdasd")]
         public IEnumerable<WeatherForecast> Get()

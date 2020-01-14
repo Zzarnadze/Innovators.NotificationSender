@@ -13,6 +13,8 @@ namespace Innovators.NotificationSender.Domain.Entities
         [MaxLength(300)]
         public string Name { get; set; }
 
+        public string zzz { get; set; }
+
         [Required]
         public string Template { get; set; }
 

@@ -4,6 +4,38 @@
         <name>Innovators.NotificationSender.API</name>
     </assembly>
     <members>
+        <member name="M:Innovators.NotificationSender.API.Controllers.BaseController.Error(Innovators.NotificationSender.Common.Helpers.Enums.ResultCodeEnum)">
+            <summary>
+            
+            </summary>
+            <param name="resultCode"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Innovators.NotificationSender.API.Controllers.NotificationController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Innovators.NotificationSender.API.Controllers.NotificationController._notificationservice">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Innovators.NotificationSender.API.Controllers.NotificationController.#ctor(Innovators.NotificationSender.Service.Services.INotificationService)">
+            <summary>
+            
+            </summary>
+            <param name="notificationService"></param>
+        </member>
+        <member name="M:Innovators.NotificationSender.API.Controllers.NotificationController.SendMail(Innovators.NotificationSender.Domain.DTOs.EmailDto)">
+            <summary>
+            
+            </summary>
+            <param name="model"></param>
+            <param name="username"></param>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
         <member name="M:Innovators.NotificationSender.API.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
             

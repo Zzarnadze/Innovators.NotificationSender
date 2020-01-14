@@ -15,5 +15,7 @@ namespace Innovators.NotificationSender.Domain.Entities
         public DateTime? LastModificationDate { get; set; }
         public int? CreatedByCustomerId { get; set; }
         public int? LastModifiedByCustomerId { get; set; }
+
+        public virtual NotificationType NotificationType {get; set;}
     }
 }

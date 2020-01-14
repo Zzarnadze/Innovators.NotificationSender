@@ -6,7 +6,7 @@ namespace Innovators.NotificationSender.Domain.Enums
 {
     public enum NotificationTypeEnum
     {
-        Sms=1,
-        Email=2
+        Email = 1,
+        Sms =2
     }
 }
