@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <Folder Include="Exceptions\" />
-    <Folder Include="Helpers\Utilities\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,12 +24,21 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ResponseResources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\ValidationMessageResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ValidationMessageResources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Update="Resources\ResponseResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ResponseResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\ValidationMessageResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ValidationMessageResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

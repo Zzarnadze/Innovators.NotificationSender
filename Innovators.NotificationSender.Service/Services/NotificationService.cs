@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Innovators.NotificationSender.Common.HelperModel;
 using Innovators.NotificationSender.Common.Helpers.Enums;
 using Innovators.NotificationSender.Common.Helpers.Models;
+using Innovators.NotificationSender.Common.Helpers.Utilities;
 using Innovators.NotificationSender.Domain.DTOs;
 using Innovators.NotificationSender.Domain.Entities;
 using Innovators.NotificationSender.Domain.Enums;
@@ -11,7 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using MimeKit;
 using System;
 using System.Collections.Generic;
-
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -96,6 +98,86 @@ namespace Innovators.NotificationSender.Service.Services
                 };
             }
         }
+
+
+        public async Task<ResultWrapper<string>> SendSms(SmsDto request)
+        {
+            try
+            {
+                var smsconfiguration = await _context.SmsConfigurations.FirstOrDefaultAsync(x => x.IsActive == true && x.IsDeleted == false);
+                if (smsconfiguration == null)
+                {
+                    return new ResultWrapper<string>
+                    {
+                        Status = ResultCodeEnum.Code404NotFound
+                    };
+                }
+                var notifications = _mapper.Map<Notification>(request);
+
+                notifications.NotificationTypeId = (int)NotificationTypeEnum.Sms;
+                notifications.ProviderName = "Magti";
+                notifications.ServiceId = smsconfiguration.ServiceId;
+                notifications.Sender = "client";
+                notifications.SenderDisplay = "Test";
+                notifications.CreatedByCustomerId =1;
+
+                _context.Add(notifications);
+                
+
+                var coding = request.IsUnicode ? (int)CharacterEncodingEnum.Unicode : (int)CharacterEncodingEnum.Default;
+                var mainText = request.Body;
+                var url = string.Format(smsconfiguration.ServiceRequestUrl, smsconfiguration.ServiceId, SmsUtilities.FixReceiveNumber(request.Reciver), mainText, coding);
+                var statusObject = new SmsSendStatus();
+
+                HttpResponseMessage result = new HttpResponseMessage();
+
+                using (HttpClient client = new HttpClient())
+                {
+                    result = client.GetAsync(url).Result;
+                }
+
+                if (result != null && result.IsSuccessStatusCode)
+                {
+                    var smsSendResult = result.Content.ReadAsStringAsync().Result;
+                    statusObject = SmsUtilities.ParseSmsStatusCode(smsSendResult);
+                }
+                else
+                {
+                    notifications.NotificationStatusId = (int)SmsSendStatusCodeEnum.ServerError;
+                    _context.Update(notifications);
+
+                    return new ResultWrapper<string>
+                    {
+                        Status = ResultCodeEnum.Code200Success,
+                        Value = null
+
+                    };
+                }
+
+                if (statusObject.Status == SmsSendStatusCodeEnum.Success)
+                    notifications.MessageId = statusObject.MessageId;
+
+                notifications.NotificationStatusId = (int)statusObject.Status;
+                _context.Update(notifications);
+
+                return new ResultWrapper<string>
+                {
+                    Status = ResultCodeEnum.Code200Success,
+                    Value = null
+
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ResultWrapper<string>
+                {
+                    Status = ResultCodeEnum.Code404NotFound
+                };
+            }
+        }
+
+
+        
     }
 
 }

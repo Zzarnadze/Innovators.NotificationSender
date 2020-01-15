@@ -9,6 +9,8 @@ namespace Innovators.NotificationSender.Service.Services
 {
     public interface INotificationService
     {
-        Task<ResultWrapper<string>> SendEmail(EmailDto email);
+        Task<ResultWrapper<string>> SendEmail(EmailDto emailDto);
+
+        Task<ResultWrapper<string>> SendSms(SmsDto smsDto);
     }
 }

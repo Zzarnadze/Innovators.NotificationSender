@@ -51,7 +51,7 @@ namespace Innovators.NotificationSender.API.Controllers
             {
                 var response = await _notificationservice.SendEmail(model);
                 if (response.Status == ResultCodeEnum.Code200Success)
-                    return CreatedAtAction("Get",  response.Value);
+                    return CreatedAtAction("SendMail",  response.Value);
 
                return Error(response.Status);
             }
@@ -62,6 +62,26 @@ namespace Innovators.NotificationSender.API.Controllers
             }
         }
 
+
+        [ProducesResponseType(typeof(string), 200)]
+        [HttpPost("SendMail")]
+        public async Task<IActionResult> SendSms([FromBody]SmsDto model)
+        {
+
+            try
+            {
+                var response = await _notificationservice.SendSms(model);
+                if (response.Status == ResultCodeEnum.Code200Success)
+                    return CreatedAtAction("SendSms", response.Value);
+
+                return Error(response.Status);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, ex.Message);
+                return Error(ResultCodeEnum.Code500InternalServerError);
+            }
+        }
 
     }
 }

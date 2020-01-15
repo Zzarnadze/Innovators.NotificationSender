@@ -15,6 +15,7 @@ namespace Innovators.NotificationSender.Persistence.Context
         DbSet<User> Users { get; set; }
 
         DbSet<MailConfiguration> MailConfigurations { get; set; }
+        DbSet<SmsConfiguration> SmsConfigurations { get; set; }
         DbSet<MailTemplate> MailTemplates { get; set; }
 
         int SaveChanges();
