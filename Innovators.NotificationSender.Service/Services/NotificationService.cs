@@ -39,19 +39,14 @@ namespace Innovators.NotificationSender.Service.Services
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
-        public async Task<ResultWrapper<string>> SendEmail(EmailDto email)
+        public async Task<ResultCodeEnum> SendEmail(EmailDto email)
         {
             try
             {
                 var mailSetting = await _context.MailSettings.FirstOrDefaultAsync(x => x.IsActive == true &&x.IsDeleted == false);
 
                 if (mailSetting == null)
-                {
-                    return new ResultWrapper<string>
-                    {
-                        Status = ResultCodeEnum.Code404NotFound
-                    };
-                }
+                    return ResultCodeEnum.Code404NotFound;
 
                 var message = new MimeMessage();
                 message.From.Add(new MailboxAddress(mailSetting.Email, email.SenderDisplay));
@@ -83,34 +78,23 @@ namespace Innovators.NotificationSender.Service.Services
                 _context.SaveChanges();
 
 
-                return new ResultWrapper<string>
-                {
-                    Status = ResultCodeEnum.Code200Success,
-                    Value = null
-
-                };
+                return ResultCodeEnum.Code200Success;
             }
             catch (Exception ex)
             {
-                return new ResultWrapper<string>
-                {
-                    Status = ResultCodeEnum.Code404NotFound
-                };
+                return ResultCodeEnum.Code500InternalServerError;
             }
         }
 
 
-        public async Task<ResultWrapper<string>> SendSms(SmsDto request)
+        public async Task<ResultCodeEnum> SendSms(SmsDto request)
         {
             try
             {
                 var smsSetting = await _context.SmsSettings.FirstOrDefaultAsync(x => x.IsActive == true && x.IsDeleted == false);
                 if (smsSetting == null)
                 {
-                    return new ResultWrapper<string>
-                    {
-                        Status = ResultCodeEnum.Code404NotFound
-                    };
+                    return ResultCodeEnum.Code404NotFound;
                 }
                 var notifications = _mapper.Map<Notification>(request);
 
@@ -146,12 +130,7 @@ namespace Innovators.NotificationSender.Service.Services
                     notifications.NotificationStatusId = (int)SmsSendStatusCodeEnum.ServerError;
                     _context.Update(notifications);
 
-                    return new ResultWrapper<string>
-                    {
-                        Status = ResultCodeEnum.Code200Success,
-                        Value = null
-
-                    };
+                    return ResultCodeEnum.Code200Success;
                 }
 
                 if (statusObject.Status == SmsSendStatusCodeEnum.Success)
@@ -160,19 +139,11 @@ namespace Innovators.NotificationSender.Service.Services
                 notifications.NotificationStatusId = (int)statusObject.Status;
                 _context.Update(notifications);
 
-                return new ResultWrapper<string>
-                {
-                    Status = ResultCodeEnum.Code200Success,
-                    Value = null
-
-                };
+                return ResultCodeEnum.Code200Success;
             }
             catch (Exception ex)
             {
-                return new ResultWrapper<string>
-                {
-                    Status = ResultCodeEnum.Code404NotFound
-                };
+                return ResultCodeEnum.Code500InternalServerError;
             }
         }
 

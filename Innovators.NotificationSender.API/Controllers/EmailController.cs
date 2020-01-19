@@ -47,10 +47,10 @@ namespace Innovators.NotificationSender.API.Controllers
             try
             {
                 var response = await _notificationservice.SendEmail(model);
-                if (response.Status == ResultCodeEnum.Code200Success)
+                if (response == ResultCodeEnum.Code200Success)
                     return Ok();
 
-                return Error(response.Status);
+                return Error(response);
             }
             catch (Exception ex)
             {
