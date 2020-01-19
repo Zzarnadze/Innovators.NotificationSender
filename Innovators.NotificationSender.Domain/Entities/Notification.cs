@@ -19,8 +19,6 @@ namespace Innovators.NotificationSender.Domain.Entities
         public string MessageId { get; set; }
         public int? TemplateId { get; set; }
         public string TemplateItems { get; set; }
-        public int? SubTemplateId { get; set; }
-        public string SubTemplateItems { get; set; }
         public int NotificationStatusId { get; set; }
 
         public virtual NotificationType NotificationType { get; set; }

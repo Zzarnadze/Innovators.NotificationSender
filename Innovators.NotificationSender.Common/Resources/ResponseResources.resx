@@ -126,6 +126,9 @@
   <data name="Code400BadRequest" xml:space="preserve">
     <value>Bad request</value>
   </data>
+  <data name="Code404MailSettingNotFound" xml:space="preserve">
+    <value>Mail setting not found</value>
+  </data>
   <data name="Code404NotFound" xml:space="preserve">
     <value>Not found</value>
   </data>

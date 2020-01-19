@@ -12,6 +12,7 @@ namespace Innovators.NotificationSender.Common.Helpers.Enums
         Code400BadRequest = 3,
         Code404NotFound = 4,
         Code409ResourceAlreadyExists = 5,
-        Code500DatabasePersistError = 6
+        Code500DatabasePersistError = 6,
+        Code404MailSettingNotFound = 7
     }
 }
