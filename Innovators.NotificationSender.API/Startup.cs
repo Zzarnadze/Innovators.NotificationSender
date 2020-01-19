@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation.AspNetCore;
-using Innovators.FileHandler.Service.Mappings.Profiles;
+using Innovators.NotificationSender.Service.Mappings.Profiles;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;

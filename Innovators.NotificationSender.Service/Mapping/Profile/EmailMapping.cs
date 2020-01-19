@@ -1,4 +1,4 @@
-﻿using Innovators.FileHandler.Service.Mappings.Profiles;
+﻿using Innovators.NotificationSender.Service.Mappings.Profiles;
 using Innovators.NotificationSender.Domain.DTOs;
 using Innovators.NotificationSender.Domain.Entities;
 using System;

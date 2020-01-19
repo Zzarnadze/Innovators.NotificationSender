@@ -44,7 +44,6 @@ namespace Innovators.NotificationSender.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Send([FromBody]EmailDto model)
         {
-
             try
             {
                 var response = await _notificationservice.SendEmail(model);

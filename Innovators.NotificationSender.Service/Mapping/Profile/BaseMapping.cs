@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Innovators.FileHandler.Service.Mappings.Profiles
+namespace Innovators.NotificationSender.Service.Mappings.Profiles
 {
     public class BaseMappingProfile : AutoMapper.Profile
     {
