@@ -60,7 +60,7 @@ namespace Innovators.NotificationSender.Persistence.Context
             {
                 var mailSetting = new MailSetting(
                     "tm998576@gmail.com", 
-                    PasswordEncryption.EncryptPassword("123", "123"), 
+                    PasswordEncryption.EncryptPassword("testMail(strong);"), 
                     "smtp.gmail.com", 587);
 
                 context.Add(mailSetting);

@@ -23,10 +23,6 @@ namespace Innovators.NotificationSender.Service.Services
 {
     public class NotificationService : INotificationService
     {
-        #region Constants
-        private const string CryptoKey = "123";
-        #endregion
-
         #region Private Fields
         private readonly NotificationSenderDbContext _context;
         private readonly IMapper _mapper;
@@ -70,7 +66,7 @@ namespace Innovators.NotificationSender.Service.Services
             using (var client = new SmtpClient())
             {
                 client.Connect(mailSetting.Host, mailSetting.Port, SecureSocketOptions.StartTls);
-                client.Authenticate(mailSetting.Email, PasswordEncryption.DecryptPassword(CryptoKey, mailSetting.Password));
+                client.Authenticate(mailSetting.Email, PasswordEncryption.DecryptPassword(mailSetting.Password));
                 client.Send(message);
                 client.Disconnect(false);
             }

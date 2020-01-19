@@ -8,19 +8,20 @@ namespace Innovators.NotificationSender.Common.Helpers.Utilities.Encryption
 {
     public class PasswordEncryption
     {
+        public const string Key = "b14ca5898a4e4133bbce2ea2315a1916";
         /// <summary>
         /// Encrypts the password
         /// </summary>
         /// <param name="key">Key</param>
         /// <param name="plainInput">Plain password</param>
         /// <returns>Encrypted password</returns>
-        public static string EncryptPassword(string key, string plainInput)
+        public static string EncryptPassword(string plainInput)
         {
             byte[] iv = new byte[16];
             byte[] array;
             using (Aes aes = Aes.Create())
             {
-                aes.Key = Encoding.UTF8.GetBytes(key);
+                aes.Key = Encoding.UTF8.GetBytes(Key);
                 aes.IV = iv;
                 ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
                 using (MemoryStream memoryStream = new MemoryStream())
@@ -46,13 +47,13 @@ namespace Innovators.NotificationSender.Common.Helpers.Utilities.Encryption
         /// <param name="key">Key</param>
         /// <param name="cipherText">Encrypted password</param>
         /// <returns>Raw password</returns>
-        public static string DecryptPassword(string key, string cipherText)
+        public static string DecryptPassword(string cipherText)
         {
             byte[] iv = new byte[16];
             byte[] buffer = Convert.FromBase64String(cipherText);
             using (Aes aes = Aes.Create())
             {
-                aes.Key = Encoding.UTF8.GetBytes(key);
+                aes.Key = Encoding.UTF8.GetBytes(Key);
                 aes.IV = iv;
                 ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
                 using (MemoryStream memoryStream = new MemoryStream(buffer))
