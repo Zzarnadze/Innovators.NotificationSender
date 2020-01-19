@@ -61,11 +61,56 @@
             <param name="model">Sms</param>
             <returns>Status code</returns>
         </member>
+        <member name="T:Innovators.NotificationSender.API.Program">
+            <summary>
+            Program Class
+            </summary>
+        </member>
+        <member name="M:Innovators.NotificationSender.API.Program.Main(System.String[])">
+            <summary>
+            Main method, AKA starting point of the application
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:Innovators.NotificationSender.API.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            Creates host builder
+            </summary>
+            <param name="args">Args</param>
+        </member>
+        <member name="T:Innovators.NotificationSender.API.Startup">
+            <summary>
+            Startup Class
+            </summary>
+        </member>
+        <member name="M:Innovators.NotificationSender.API.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Constructor for a Startup class
+            </summary>
+            <param name="configuration">Configuration</param>
+        </member>
+        <member name="P:Innovators.NotificationSender.API.Startup.Configuration">
+            <summary>
+            Configuration accessor
+            </summary>
+        </member>
         <member name="M:Innovators.NotificationSender.API.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
-            
+            This method gets called by the runtime. Use this method to add services to the container
             </summary>
-            <param name="services"></param>
+            <param name="services">Services collection</param>
+        </member>
+        <member name="M:Innovators.NotificationSender.API.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app">Application builder</param>
+            <param name="env">Web host environment</param>
+        </member>
+        <member name="T:Innovators.NotificationSender.Api.ConventionsAndFilters.RemoveApiVersionFromParamsOperationFilter">
+            <summary>
+            RemoveApiVersionFromParamsOperationFilter class
+            </summary>
         </member>
         <member name="M:Innovators.NotificationSender.Api.ConventionsAndFilters.RemoveApiVersionFromParamsOperationFilter.Apply(Microsoft.OpenApi.Models.OpenApiOperation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
             <summary>

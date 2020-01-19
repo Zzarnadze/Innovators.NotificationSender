@@ -6,11 +6,11 @@ using System.Text;
 
 namespace Innovators.NotificationSender.Persistence.Context
 {
-   public class NotificationSenderDbContextFactory: DesignTimeDbContextFactoryBase<NotificationSenderDbCondetxt>
+   public class NotificationSenderDbContextFactory: DesignTimeDbContextFactoryBase<NotificationSenderDbContext>
     {
-        protected override NotificationSenderDbCondetxt CreateNewInstance(DbContextOptions<NotificationSenderDbCondetxt> options)
+        protected override NotificationSenderDbContext CreateNewInstance(DbContextOptions<NotificationSenderDbContext> options)
         {
-            return new NotificationSenderDbCondetxt(options);
+            return new NotificationSenderDbContext(options);
         }
     }
 }

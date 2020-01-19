@@ -5,19 +5,9 @@ using System.Text;
 
 namespace Innovators.NotificationSender.Domain.Entities
 {
-   public class MailTemplate :Base
+   public class MailTemplate : Base
     {
-
-
-        [Required]
-        [MaxLength(300)]
         public string Name { get; set; }
-
-        public string zzz { get; set; }
-
-        [Required]
         public string Template { get; set; }
-
-
     }
 }

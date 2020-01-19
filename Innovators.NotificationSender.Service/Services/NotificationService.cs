@@ -21,11 +21,11 @@ namespace Innovators.NotificationSender.Service.Services
 {
     public class NotificationService : INotificationService
     {
-        private readonly NotificationSenderDbCondetxt _context;
+        private readonly NotificationSenderDbContext _context;
         private readonly IMapper _mapper;
 
         public NotificationService(
-            NotificationSenderDbCondetxt condetxt,
+            NotificationSenderDbContext condetxt,
             IMapper mapper)
 
 
@@ -42,9 +42,9 @@ namespace Innovators.NotificationSender.Service.Services
         {
             try
             {
-                var mailconfiguration = await _context.MailConfigurations.FirstOrDefaultAsync(x => x.IsActive == true &&x.IsDeleted == false);
+                var mailSetting = await _context.MailSettings.FirstOrDefaultAsync(x => x.IsActive == true &&x.IsDeleted == false);
 
-                if (mailconfiguration == null)
+                if (mailSetting == null)
                 {
                     return new ResultWrapper<string>
                     {
@@ -53,7 +53,7 @@ namespace Innovators.NotificationSender.Service.Services
                 }
 
                 var message = new MimeMessage();
-                message.From.Add(new MailboxAddress(mailconfiguration.Email, email.SenderDisplay));
+                message.From.Add(new MailboxAddress(mailSetting.Email, email.SenderDisplay));
                 message.To.Add(new MailboxAddress(email.Receiver));
                 message.Subject = email.Subject;
                 message.Body = new TextPart("html")
@@ -63,8 +63,8 @@ namespace Innovators.NotificationSender.Service.Services
 
                 using (var client = new SmtpClient())
                 {
-                    client.Connect(mailconfiguration.Host, mailconfiguration.Port, SecureSocketOptions.StartTls);
-                    client.Authenticate(mailconfiguration.Email, mailconfiguration.Password);
+                    client.Connect(mailSetting.Host, mailSetting.Port, SecureSocketOptions.StartTls);
+                    client.Authenticate(mailSetting.Email, mailSetting.Password);
                     client.Send(message);
                     client.Disconnect(false);
 
@@ -76,7 +76,7 @@ namespace Innovators.NotificationSender.Service.Services
 
                 notifications.NotificationTypeId = (int)NotificationTypeEnum.Email;
                 notifications.ServiceId = 1;
-                notifications.Sender = mailconfiguration.Email;
+                notifications.Sender = mailSetting.Email;
                 notifications.SenderDisplay = email.SenderDisplay;
                 notifications.CreatedByCustomerId = 1;
                 _context.Add(notifications);
@@ -104,8 +104,8 @@ namespace Innovators.NotificationSender.Service.Services
         {
             try
             {
-                var smsconfiguration = await _context.SmsConfigurations.FirstOrDefaultAsync(x => x.IsActive == true && x.IsDeleted == false);
-                if (smsconfiguration == null)
+                var smsSetting = await _context.SmsSettings.FirstOrDefaultAsync(x => x.IsActive == true && x.IsDeleted == false);
+                if (smsSetting == null)
                 {
                     return new ResultWrapper<string>
                     {
@@ -116,7 +116,7 @@ namespace Innovators.NotificationSender.Service.Services
 
                 notifications.NotificationTypeId = (int)NotificationTypeEnum.Sms;
                 notifications.ProviderName = "Magti";
-                notifications.ServiceId = smsconfiguration.ServiceId;
+                notifications.ServiceId = smsSetting.ServiceId;
                 notifications.Sender = "client";
                 notifications.SenderDisplay = "Test";
                 notifications.CreatedByCustomerId =1;
@@ -126,7 +126,7 @@ namespace Innovators.NotificationSender.Service.Services
 
                 var coding = request.IsUnicode ? (int)CharacterEncodingEnum.Unicode : (int)CharacterEncodingEnum.Default;
                 var mainText = request.Body;
-                var url = string.Format(smsconfiguration.ServiceRequestUrl, smsconfiguration.ServiceId, SmsUtilities.FixReceiveNumber(request.Reciver), mainText, coding);
+                var url = string.Format(smsSetting.ServiceRequestUrl, smsSetting.ServiceId, SmsUtilities.FixReceiveNumber(request.Reciver), mainText, coding);
                 var statusObject = new SmsSendStatus();
 
                 HttpResponseMessage result = new HttpResponseMessage();

@@ -29,22 +29,33 @@ using Innovators.NotificationSender.Service.Services;
 
 namespace Innovators.NotificationSender.API
 {
+    /// <summary>
+    /// Startup Class
+    /// </summary>
     public class Startup
     {
+        #region Private Fields
         private readonly string _allowedOrigins = "NotificationOrigins";
+        #endregion
 
+        /// <summary>
+        /// Constructor for a Startup class
+        /// </summary>
+        /// <param name="configuration">Configuration</param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
+        /// <summary>
+        /// Configuration accessor
+        /// </summary>
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         /// <summary>
-        /// 
+        /// This method gets called by the runtime. Use this method to add services to the container
         /// </summary>
-        /// <param name="services"></param>
+        /// <param name="services">Services collection</param>
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
@@ -55,13 +66,12 @@ namespace Innovators.NotificationSender.API
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-           services.AddPersistence(Configuration);
+            services.AddPersistence(Configuration);
 
-             services.AddScoped<INotificationService, NotificationService>();
+            services.AddScoped<INotificationService, NotificationService>();
 
             #region Options
             services.AddOptions();
-
             #endregion
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -97,7 +107,7 @@ namespace Innovators.NotificationSender.API
             .AddDataAnnotationsLocalization(
                 options =>
                 {
-                      //  options.DataAnnotationLocalizerProvider = (type, factory) => factory.Create(typeof(ValidationMessageResources));
+                    //  options.DataAnnotationLocalizerProvider = (type, factory) => factory.Create(typeof(ValidationMessageResources));
                 });
 
             #region Customise default API behavour
@@ -110,7 +120,6 @@ namespace Innovators.NotificationSender.API
             #region Authentication
             //Todo: Add authentication
             #endregion
-            //sanaxavi
             #region Versioning
             services.AddApiVersioning(o =>
             {
@@ -126,23 +135,27 @@ namespace Innovators.NotificationSender.API
             {
                 c.SwaggerDoc("v1.0", new OpenApiInfo
                 {
-                   Title = Configuration.GetValue<string>("SwaggerDocOptions:Title"),
-                   Version = Configuration.GetValue<string>("SwaggerDocOptions:Version"),
-                   Description = Configuration.GetValue<string>("SwaggerDocOptions:Description")
+                    Title = Configuration.GetValue<string>("SwaggerDocOptions:Title"),
+                    Version = Configuration.GetValue<string>("SwaggerDocOptions:Version"),
+                    Description = Configuration.GetValue<string>("SwaggerDocOptions:Description")
                 });
 
 
                 c.OperationFilter<RemoveApiVersionFromParamsOperationFilter>();
                 var basePath = PlatformServices.Default.Application.ApplicationBasePath;
                 var xmlPath = Path.Combine(basePath, "notificationsender.xml");
-            //    c.IncludeXmlComments(xmlPath);
+                //    c.IncludeXmlComments(xmlPath);
 
                 //Todo: add identity stuff
             });
             #endregion
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// </summary>
+        /// <param name="app">Application builder</param>
+        /// <param name="env">Web host environment</param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

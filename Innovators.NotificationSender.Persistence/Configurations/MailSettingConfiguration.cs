@@ -7,9 +7,9 @@ using System.Text;
 
 namespace Innovators.NotificationSender.Persistence.Configurations
 {
-   public class MailConfigurationConfiguration :IEntityTypeConfiguration<MailConfiguration>
+   public class MailSettingConfiguration : IEntityTypeConfiguration<MailSetting>
     {
-        public void Configure (EntityTypeBuilder<MailConfiguration> builder)
+        public void Configure (EntityTypeBuilder<MailSetting> builder)
         {
             builder.HasKey(e => e.Id);
 

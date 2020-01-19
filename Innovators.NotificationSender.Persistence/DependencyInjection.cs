@@ -15,14 +15,14 @@ namespace Innovators.NotificationSender.Persistence
             services.AddEntityFrameworkSqlServer();
             services.AddEntityFrameworkProxies();
 
-            services.AddDbContext<NotificationSenderDbCondetxt>((serviceProvider, options) =>
+            services.AddDbContext<NotificationSenderDbContext>((serviceProvider, options) =>
             {
                 options.UseSqlServer(configuration.GetConnectionString("NotificationSenderConnectionString"));
                 options.UseLazyLoadingProxies();
                 options.UseInternalServiceProvider(serviceProvider);
             });
 
-            services.AddScoped<INotificationSenderDbcontext>(provider => provider.GetService<NotificationSenderDbCondetxt>());
+            services.AddScoped<INotificationSenderDbContext>(provider => provider.GetService<NotificationSenderDbContext>());
 
             return services;
 

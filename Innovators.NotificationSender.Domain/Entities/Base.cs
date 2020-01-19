@@ -7,7 +7,6 @@ namespace Innovators.NotificationSender.Domain.Entities
 {
     public class Base
     {
-        [Key]
         public int Id { get; set; }
         public bool? IsActive { get; set; }
         public bool? IsDeleted { get; set; }
@@ -15,7 +14,5 @@ namespace Innovators.NotificationSender.Domain.Entities
         public DateTime? LastModificationDate { get; set; }
         public int? CreatedByCustomerId { get; set; }
         public int? LastModifiedByCustomerId { get; set; }
-
-        public virtual NotificationType NotificationType {get; set;}
     }
 }
