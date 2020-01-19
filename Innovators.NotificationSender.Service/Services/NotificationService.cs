@@ -42,7 +42,7 @@ namespace Innovators.NotificationSender.Service.Services
         {
             try
             {
-                var mailconfiguration = await _context.MailConfigurations.FirstOrDefaultAsync(x => x.IsActive == true &&x.IsDeleted==false);
+                var mailconfiguration = await _context.MailConfigurations.FirstOrDefaultAsync(x => x.IsActive == true &&x.IsDeleted == false);
 
                 if (mailconfiguration == null)
                 {

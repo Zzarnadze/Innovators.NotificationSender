@@ -10,6 +10,9 @@ using Serilog;
 
 namespace Innovators.NotificationSender.API.Controllers
 {
+    /// <summary>
+    /// Base Controller
+    /// </summary>
     public class BaseController : ControllerBase
     {
         /// <summary>

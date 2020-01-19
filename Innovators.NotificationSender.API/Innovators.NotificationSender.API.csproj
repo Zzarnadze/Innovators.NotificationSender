@@ -6,8 +6,8 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
-    <OutputPath>notificationsender.xml</OutputPath>
-    <DocumentationFile>notificationsender.xml\Innovators.NotificationSender.API.xml</DocumentationFile>
+    <OutputPath></OutputPath>
+    <DocumentationFile>notificationsender1.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,6 +20,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Innovators.NotificationSender.Service\Innovators.NotificationSender.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Logs\" />
   </ItemGroup>
 
 
