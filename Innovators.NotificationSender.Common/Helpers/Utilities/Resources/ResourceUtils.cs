@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Innovators.NotificationSender.Common.Resources;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Innovators.NotificationSender.Common.Resources
+namespace Innovators.NotificationSender.Common.Helpers.Utilities.Resources
 {
     public class ResourceUtils
     {

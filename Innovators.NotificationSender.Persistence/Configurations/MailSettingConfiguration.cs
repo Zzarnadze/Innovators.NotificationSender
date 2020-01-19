@@ -15,11 +15,7 @@ namespace Innovators.NotificationSender.Persistence.Configurations
 
             builder.HasIndex(e => e.Id);
 
-            builder.Property(e => e.Password).IsRequired();
-
             builder.Property(e => e.Email).IsRequired();
-
-            builder.Property(e => e.UserName).IsRequired();
 
             builder.Property(e => e.Password).IsRequired();
 

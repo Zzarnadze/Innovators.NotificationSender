@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Innovators.NotificationSender.Common.Helpers.Enums;
+using Innovators.NotificationSender.Common.Helpers.Utilities.Resources;
 using Innovators.NotificationSender.Common.Resources;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -33,7 +34,6 @@ namespace Innovators.NotificationSender.API.Controllers
             {
                 Log.Error(ex, ex.Message);
                 return StatusCode(
-                    //zzz
                     StatusCodes.Status500InternalServerError,
                     ResourceUtils.GetresponseResourceString(ResultCodeEnum.Code500InternalServerError.ToString()));
             }

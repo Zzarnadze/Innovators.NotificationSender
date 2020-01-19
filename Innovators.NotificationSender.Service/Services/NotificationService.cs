@@ -2,7 +2,8 @@
 using Innovators.NotificationSender.Common.HelperModel;
 using Innovators.NotificationSender.Common.Helpers.Enums;
 using Innovators.NotificationSender.Common.Helpers.Models;
-using Innovators.NotificationSender.Common.Helpers.Utilities;
+using Innovators.NotificationSender.Common.Helpers.Utilities.Encryption;
+using Innovators.NotificationSender.Common.Helpers.Utilities.Sms;
 using Innovators.NotificationSender.Domain.DTOs;
 using Innovators.NotificationSender.Domain.Entities;
 using Innovators.NotificationSender.Domain.Enums;
@@ -21,14 +22,14 @@ namespace Innovators.NotificationSender.Service.Services
 {
     public class NotificationService : INotificationService
     {
+        private const string CryptoKey = "123";
+
         private readonly NotificationSenderDbContext _context;
         private readonly IMapper _mapper;
 
         public NotificationService(
             NotificationSenderDbContext condetxt,
             IMapper mapper)
-
-
         {
             _context = condetxt;
             _mapper = mapper;
@@ -64,10 +65,9 @@ namespace Innovators.NotificationSender.Service.Services
                 using (var client = new SmtpClient())
                 {
                     client.Connect(mailSetting.Host, mailSetting.Port, SecureSocketOptions.StartTls);
-                    client.Authenticate(mailSetting.Email, mailSetting.Password);
+                    client.Authenticate(mailSetting.Email, PasswordEncryption.DecryptPassword(CryptoKey, mailSetting.Password));
                     client.Send(message);
                     client.Disconnect(false);
-
                 }
 
 
@@ -126,7 +126,7 @@ namespace Innovators.NotificationSender.Service.Services
 
                 var coding = request.IsUnicode ? (int)CharacterEncodingEnum.Unicode : (int)CharacterEncodingEnum.Default;
                 var mainText = request.Body;
-                var url = string.Format(smsSetting.ServiceRequestUrl, smsSetting.ServiceId, SmsUtilities.FixReceiveNumber(request.Reciver), mainText, coding);
+                var url = string.Format(smsSetting.ServiceRequestUrl, smsSetting.ServiceId, PhoneNumber.FixReceiverNumber(request.Reciver), mainText, coding);
                 var statusObject = new SmsSendStatus();
 
                 HttpResponseMessage result = new HttpResponseMessage();
@@ -139,7 +139,7 @@ namespace Innovators.NotificationSender.Service.Services
                 if (result != null && result.IsSuccessStatusCode)
                 {
                     var smsSendResult = result.Content.ReadAsStringAsync().Result;
-                    statusObject = SmsUtilities.ParseSmsStatusCode(smsSendResult);
+                    statusObject = PhoneNumber.ParseSmsStatusCode(smsSendResult);
                 }
                 else
                 {

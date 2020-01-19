@@ -4,14 +4,18 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Innovators.NotificationSender.Common.Helpers.Utilities
+namespace Innovators.NotificationSender.Common.Helpers.Utilities.Sms
 {
-    public class SmsUtilities
+    public class PhoneNumber
     {
-
+        /// <summary>
+        /// Parses sms status code returned from service provider
+        /// </summary>
+        /// <param name="rawCode">Raw code</param>
+        /// <returns>Parsed code</returns>
         public static SmsSendStatus ParseSmsStatusCode (string rawCode)
         {
-            var ParseCode = (int)Char.GetNumericValue(rawCode[3]);
+            var ParseCode = (int)char.GetNumericValue(rawCode[3]);
             var messageId = ParseCode == 0 ? rawCode.Substring(7) : "";
 
             return new SmsSendStatus
@@ -21,7 +25,12 @@ namespace Innovators.NotificationSender.Common.Helpers.Utilities
             };
         }
 
-        public static string FixReceiveNumber (string rawNumber)
+        /// <summary>
+        /// Fixes receiver number
+        /// </summary>
+        /// <param name="rawNumber">Raw number</param>
+        /// <returns>Fixed number</returns>
+        public static string FixReceiverNumber (string rawNumber)
         {
             if (rawNumber.Length == 9)
             {
