@@ -88,6 +88,15 @@ namespace Innovators.NotificationSender.Common.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mail setting not found.
+        /// </summary>
+        internal static string Code404MailSettingNotFound {
+            get {
+                return ResourceManager.GetString("Code404MailSettingNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Not found.
         /// </summary>
         internal static string Code404NotFound {

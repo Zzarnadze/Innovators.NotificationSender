@@ -1,4 +1,5 @@
-﻿using Innovators.NotificationSender.Common.Helpers.Models;
+﻿using Innovators.NotificationSender.Common.Helpers.Enums;
+using Innovators.NotificationSender.Common.Helpers.Models;
 using Innovators.NotificationSender.Domain.DTOs;
 using System;
 using System.Collections.Generic;
@@ -9,8 +10,8 @@ namespace Innovators.NotificationSender.Service.Services
 {
     public interface INotificationService
     {
-        Task<ResultWrapper<string>> SendEmail(EmailDto emailDto);
+        Task<ResultCodeEnum> SendEmail(EmailDto emailDto);
 
-        Task<ResultWrapper<string>> SendSms(SmsDto smsDto);
+        Task<ResultCodeEnum> SendSms(SmsDto smsDto);
     }
 }

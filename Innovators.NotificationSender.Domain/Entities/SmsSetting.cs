@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Innovators.NotificationSender.Domain.Entities
 {
-   public class MailTemplate : Base
+    public class SmsSetting : Base
     {
-        public string Name { get; set; }
-        public string Template { get; set; }
+        public string ServiceRequestUrl { get; set; }
+        public int ServiceId { get; set; }
     }
 }

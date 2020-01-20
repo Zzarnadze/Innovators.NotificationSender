@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Innovators.NotificationSender.Api.ConventionsAndFilters
 {
+    /// <summary>
+    /// RemoveApiVersionFromParamsOperationFilter class
+    /// </summary>
     public class RemoveApiVersionFromParamsOperationFilter : IOperationFilter
     {
         /// <summary>

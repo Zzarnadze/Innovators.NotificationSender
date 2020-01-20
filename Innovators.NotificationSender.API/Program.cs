@@ -14,8 +14,15 @@ using Serilog;
 
 namespace Innovators.NotificationSender.API
 {
+    /// <summary>
+    /// Program Class
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// Main method, AKA starting point of the application
+        /// </summary>
+        /// <param name="args"></param>
         public static void Main(string[] args)
         {
             var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
@@ -36,7 +43,7 @@ namespace Innovators.NotificationSender.API
                 var host = CreateHostBuilder(args).Build();
                 using (var scope = host.Services.CreateScope())
                 {
-                    var context = scope.ServiceProvider.GetService<NotificationSenderDbCondetxt>();
+                    var context = scope.ServiceProvider.GetService<NotificationSenderDbContext>();
                     context.Database.Migrate();
 
                     NotificationSenderInitializer.Initialize(context);
@@ -54,6 +61,10 @@ namespace Innovators.NotificationSender.API
             }
         }
 
+        /// <summary>
+        /// Creates host builder
+        /// </summary>
+        /// <param name="args">Args</param>
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                             .UseSerilog()

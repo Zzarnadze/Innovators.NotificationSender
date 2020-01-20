@@ -34,7 +34,7 @@ namespace Innovators.NotificationSender.Persistence.Configurations
             builder.HasOne(e => e.NotificationType)
                 .WithMany(e => e.Notifications)
                 .HasForeignKey(e => e.NotificationTypeId)
-                .HasConstraintName("FK_Files_NotificationType_NotificationTypeId");
+                .HasConstraintName("FK_Notifications_NotificationType_NotificationTypeId");
         }
     }
 }

@@ -8,14 +8,12 @@ using System.Threading.Tasks;
 
 namespace Innovators.NotificationSender.Persistence.Context
 {
-    interface INotificationSenderDbcontext
+    interface INotificationSenderDbContext
     {
         DbSet<Notification> Notifications { get; set; }
         DbSet<NotificationType> NotificationTypes { get; set; }
-        DbSet<User> Users { get; set; }
-
-        DbSet<MailConfiguration> MailConfigurations { get; set; }
-        DbSet<SmsConfiguration> SmsConfigurations { get; set; }
+        DbSet<MailSetting> MailSettings { get; set; }
+        DbSet<SmsSetting> SmsSettings { get; set; }
         DbSet<MailTemplate> MailTemplates { get; set; }
 
         int SaveChanges();

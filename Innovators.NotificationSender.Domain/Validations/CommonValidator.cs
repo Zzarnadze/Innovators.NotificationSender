@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Innovators.NotificationSender.Domain.Validations
 {
-   public class CommonValidator
+    public class CommonValidator
     {
     }
 }
