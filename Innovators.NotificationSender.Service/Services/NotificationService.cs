@@ -13,9 +13,14 @@ using Microsoft.EntityFrameworkCore;
 using MimeKit;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
+using Twilio.Types;
 
 namespace Innovators.NotificationSender.Service.Services
 {
@@ -53,15 +58,26 @@ namespace Innovators.NotificationSender.Service.Services
                 }
 
                 var message = new MimeMessage();
+
+
+
+                var body = new BodyBuilder
+                {
+                    HtmlBody = email.Body
+                };
+
+                foreach (var attachment in email.Attachments)
+                {
+                    var attachmentStream = new MemoryStream(attachment.AttachmentData);
+                    body.Attachments.Add(attachment.AttachmentName, attachmentStream);
+                }
                 message.From.Add(new MailboxAddress(mailconfiguration.Email, email.SenderDisplay));
                 message.To.Add(new MailboxAddress(email.Receiver));
                 message.Subject = email.Subject;
-                message.Body = new TextPart("html")
-                {
-                    Text = email.Body
-                };
+                message.Body = body.ToMessageBody();
 
-                using (var client = new SmtpClient())
+
+                using (var client = new MailKit.Net.Smtp.SmtpClient())
                 {
                     client.Connect(mailconfiguration.Host, mailconfiguration.Port, SecureSocketOptions.StartTls);
                     client.Authenticate(mailconfiguration.Email, mailconfiguration.Password);
@@ -119,10 +135,21 @@ namespace Innovators.NotificationSender.Service.Services
                 notifications.ServiceId = smsconfiguration.ServiceId;
                 notifications.Sender = "client";
                 notifications.SenderDisplay = "Test";
-                notifications.CreatedByCustomerId =1;
+                notifications.CreatedByCustomerId =99;
 
-                _context.Add(notifications);
-                
+             var xx=   _context.Add(notifications);
+
+
+                const string accountSid = "ACee8ca879e0568350c9da34d78ce561e1";
+                const string authToken = "db6e053a339b9670d7e2b3557fad7dba";
+
+                TwilioClient.Init(accountSid, authToken);
+
+                var to = new PhoneNumber("+995599212227");
+                var message = MessageResource.Create(
+                    to: to,
+                    from: new PhoneNumber("+12512502319"), //  From number, must be an SMS-enabled Twilio number ( This will send sms from ur "To" numbers ).
+                    body: $"Hello {+995599212227} !! Welcome to Asp.Net Core With Twilio SMS API !!");
 
                 var coding = request.IsUnicode ? (int)CharacterEncodingEnum.Unicode : (int)CharacterEncodingEnum.Default;
                 var mainText = request.Body;

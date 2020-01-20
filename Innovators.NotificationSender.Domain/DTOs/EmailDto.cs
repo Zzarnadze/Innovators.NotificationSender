@@ -10,7 +10,7 @@ namespace Innovators.NotificationSender.Domain.DTOs
         public string Receiver { get; set; }
         public string Subject { get; set; }
         public string SenderDisplay { get; set; }
-     //   public IEnumerable<AttachmentDto> Attachments { get; set; }
+        public IEnumerable<AttachmentDto> Attachments { get; set; }
         public bool IsBodyHtml { get; set; } = false;
     }
 

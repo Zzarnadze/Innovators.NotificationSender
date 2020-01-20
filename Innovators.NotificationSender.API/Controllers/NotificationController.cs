@@ -64,7 +64,7 @@ namespace Innovators.NotificationSender.API.Controllers
 
 
         [ProducesResponseType(typeof(string), 200)]
-        [HttpPost("SendMail")]
+        [HttpPost("SendSms")]
         public async Task<IActionResult> SendSms([FromBody]SmsDto model)
         {
 

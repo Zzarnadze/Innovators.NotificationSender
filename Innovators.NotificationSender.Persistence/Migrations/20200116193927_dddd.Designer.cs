@@ -4,14 +4,16 @@ using Innovators.NotificationSender.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Innovators.NotificationSender.Persistence.Migrations
 {
     [DbContext(typeof(NotificationSenderDbCondetxt))]
-    partial class FileHandlerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200116193927_dddd")]
+    partial class dddd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
